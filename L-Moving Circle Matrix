@@ -1,0 +1,55 @@
+import math
+import time
+#cant hear u :(
+
+
+
+m = ['-' for i in range(400)]
+
+
+def print_mat(matrix):
+     #global means go get global.
+    for i in range(400):
+        print(matrix[i], end=' ')
+        
+        if (i+1)%20 == 0:
+            print()
+
+    print()
+    
+radius = 7
+dots = 30
+
+centerx = 0
+centery = 0
+
+
+
+
+for sdd in range(1000):
+    
+    m = ['-' for i in range(400)]     
+    
+    
+    
+    for i in range(dots):
+        t = (i/dots)* 6.28
+
+        x, y=centerx+int(round(math.sin(t)*radius)),centery+int(round(math.cos(t)*radius))
+
+        if 0<=x<20 and 0<=y<20:
+            m[y*20+x] = '0'
+            
+    centerx+=1
+    centery+=1
+    
+
+    time.sleep(0.1)
+    print_mat(m)
+
+        
+        
+
+
+
+
