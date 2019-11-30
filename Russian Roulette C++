@@ -1,0 +1,135 @@
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std; //jiui
+
+struct Person
+{
+  string name;
+  int age;
+  int luck;
+  bool alive = true;
+  int lifetotal = 65040378798769803;
+  int shot = 0;
+  int round = 0;
+
+  int yearsurvived;
+
+  Person(string n, int a, int d)
+  {
+    name = n;
+    age = a;
+    luck = d;
+
+  }
+
+  bool ShootSelf()
+  {
+    int damage = 200000 + (rand() % 1000000);
+
+    int roll = rand() % 100;
+
+
+    if (roll > luck)
+    {
+      lifetotal -= damage;
+      shot++;
+    }
+
+    if (lifetotal <= 0 && alive == true)
+    {
+
+      yearsurvived =
+
+      alive = !alive;
+      return true;
+    }
+    return false;
+  }
+
+  void DeathStatement(int t)
+  {
+    cout << "My name is " << name <<
+      " and sadly, at the age of only " 
+      << age << " years old, I died after getting shot " 
+      << shot << "times." <<" I lasted "<<round<<" rounds. A total of "
+      <<t%5256000<<" years."<< endl << endl << "-Adieu" << endl;
+  }
+
+};
+
+
+
+int main()
+{
+  Person* holdinGun = nullptr;
+  int totalround = 0;
+
+  Person crowd[3] = { Person("Steve", 47, 30),Person("John", 22, 98),Person("Maxamillian", 97, 10) };
+
+
+  vector<Person*> order;
+  
+  
+  bool alldead = false;
+
+  while (!alldead)
+  {
+
+    totalround += 1;
+
+    int randperson = rand() % 3;
+
+    
+    while (!crowd[randperson].alive)
+    {
+      randperson = rand() % 3;
+      
+    }
+
+    holdinGun = &crowd[randperson];
+    holdinGun->round += 1;
+
+    
+    bool justdied = holdinGun->ShootSelf();
+    
+    if (justdied)
+    {
+      order.push_back(holdinGun);
+    }
+  
+    int threedead = 0;
+    for (int i = 0; i < 3; i++)
+    {
+      if (!crowd[i].alive)
+      {
+        
+        threedead++;
+      }
+    }
+    if (threedead == 3)
+    {
+      alldead = true;
+    }
+
+  }
+
+  
+  for (auto &p : order)
+  {
+    p->DeathStatement(totalround);
+
+  }
+
+
+
+
+  
+  
+  
+
+  return 0 ;
+}
+
